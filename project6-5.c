@@ -10,7 +10,7 @@ int main(void) {
   int num;
   printf("Please enter a number \n");
   scanf("%d", &num);
-  printf("The reversal is:  );
+  printf("The reversal is: ");
 
   // Prints the number mod 10, then divides it by 10 until its zero
   do{
