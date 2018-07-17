@@ -6,6 +6,8 @@ TO-DO: ALL OF IT :)
 */
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define STACK_SIZE 100
 
@@ -35,12 +37,13 @@ bool is_full(void){
   return top == STACK_SIZE;
 }
 
-void push(int i){
+void push(char i){
   if(is_full()){
     stack_overflow();
   }
   else{
-    contents[++top] = i;
+    top++;
+    contents[top] = i;
   }
 }
 
@@ -49,17 +52,52 @@ int pop(void){
     stack_underflow();
   }
   else{
-    return contents[--top];
+    char temp = contents[top];
+    top--;
+    return temp;
   }
 }
 
-void user_entryu(void){
-
+/* Takes in two brace and/or parentheses symbols and checks if they correspond
+*/
+bool matchingSymbol(char x, char y){
+  if(x == '(' && y == ')'){
+    return true;
+  }
+  else if( x == '{' && y == '}'){
+    return true;
+  }
+  else if( x == '[' && y == ']'){
+    return true;
+  }
+  return false;
 }
 
+void user_entry(void){
+  char ch;
+  printf("Enter parentheses and/or braces: ");
+  do{
+    ch = getchar();
+    if(ch == '(' || ch == '{' || ch == '['){
+      push(ch);
+    }
+    else if(ch == ')' || ch == '}' || ch ==')'){
+      if(!matchingSymbol(pop(), ch)){
+        printf("They are not nested correctly");
+        exit(EXIT_SUCCESS);
+      }
+    }
+  }while(ch != '\n');
+
+  if(is_empty){
+    printf("Parentheses are nested properly");
+  }
+  else{
+    printf("Parentheses/braces are not nested properly");
+  }
+}
 
 int main(void){
-  printf("Enter parentheses and/or braces: ");
-
+  user_entry();
   return 0;
 }
