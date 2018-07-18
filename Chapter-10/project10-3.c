@@ -39,7 +39,7 @@ int main(void){
 */
 bool dupCard(int hand[5][2], char suit, char rank,  int cards_read){
   for(int i = 0; i <= cards_read; i++){
-    if(hard[i][0] == rank && hand[i][1] == suit){
+    if(hand[i][0] == rank && hand[i][1] == suit){
       return true;
     }
   }
@@ -50,14 +50,13 @@ bool dupCard(int hand[5][2], char suit, char rank,  int cards_read){
 *               num_in_suit ; checks for bad cards and duplicate cards
 */
 void read_cards(int hand[5][2]){
-  bool card_exists[NUM_RANKS][NUM_SUITS];
   char ch, rank_ch, suit_ch;
   int rank, suit;
   bool bad_card;
   int cards_read = 0;
 
   for(int i = 0; i < 5; i++){
-    for(int n = 0; n < 2; i++){
+    for(int n = 0; n < 2; n++){
       hand[i][n] = 0;
     }
   }
@@ -119,9 +118,9 @@ void read_cards(int hand[5][2]){
 *                of pairs; stores the results into the external variables
 *                flush, four, three, and pairs
 */
-void analyze_hand(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_RANKS]){
+void analyze_hand(int hand[5][2]){
   int num_consec = 0;
-  int rank, suit;
+  int rank;
   straight = false;
   flush = false;
   four = false;
@@ -129,27 +128,39 @@ void analyze_hand(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_RANKS]){
   pairs = 0;
 
   /* checks for flush */
-  for(suit = 0; suit < NUM_SUITS; suit++){
-    if(num_in_suit[suit] == NUM_CARDS){
-      flush = true;
-      printf("flush was true");
+  for(int i = 0; i < NUM_CARDS; i++){
+    if(hand[i][1] != hand[0][1]){
+      break;
+    }
+    flush = true;
+  }
+
+  /* check for straight
+  * Given 5 consecutive integers, the sum will always be the lowest*5+10
+  * This solution allows us to use the new array while staying at O(n)
+  */
+  int min = hand[0][0];
+  int sum = 0;
+  for(int i = 0; i < 5; i++){
+    sum += hand[i][0];
+    if(hand[i][0] < min){
+      min = hand[i][0];
     }
   }
+  straight = (min * 5) + 10 == sum;
 
-  /* check for straight */
-  rank = 0;
-  while(num_in_rank[rank] == 0){
-    rank++;
-  }
-  for(;rank < NUM_RANKS && num_in_rank[rank] > 0; rank++){
-    num_consec++;
-  }
-  if(num_consec == NUM_CARDS){
-    straight = true;
-    return;
+
+  /* check for 4-of-a-kind, 3-of-a-kind, and pairs
+
+  LEFT TO DO - IMPLEMENT THIS */
+
+  /*
+  int match;
+  for(int i = 0; i < NUM_CARDS; i++){
+    for(int )
   }
 
-  /* check for 4-of-a-kind, 3-of-a-kind, and pairs */
+
   for(rank = 0; rank < NUM_RANKS; rank++){
     if(num_in_rank[rank] == 4){
       four = true;
@@ -161,6 +172,7 @@ void analyze_hand(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_RANKS]){
       pairs++;
     }
   }
+  */
 }
 
 /* print_result: Prints the classificaiton of the hand, based on the values of
