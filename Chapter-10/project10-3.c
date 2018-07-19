@@ -22,6 +22,7 @@ void read_cards(int hand[5][2]);
 void analyze_hand(int hand[5][2]);
 void print_result(void);
 bool dupCard(int hand[5][2], char suit, char rank, int cards_read);
+void selection_sort(int a[], int n);
 
 /******************************************************************************
 *main: Calls read_cards, analyze_hand, and print_result repeatedly.           *
@@ -36,7 +37,19 @@ int main(void){
 }
 
 /*dupCard: Checks to see if an entered card already exists in the hand arrays
-*/
+*/    /*
+  for(rank = 0; rank < NUM_RANKS; rank++){
+    if(num_in_rank[rank] == 4){
+      four = true;
+    }
+    if(num_in_rank[rank] == 3){
+      three = true;
+    }
+    if(num_in_rank[rank] == 2){
+      pairs++;
+    }
+  }
+  */
 bool dupCard(int hand[5][2], char suit, char rank,  int cards_read){
   for(int i = 0; i <= cards_read; i++){
     if(hand[i][0] == rank && hand[i][1] == suit){
@@ -102,7 +115,7 @@ void read_cards(int hand[5][2]){
     if(bad_card){
       printf("Bad card; ignored.\n");
     }
-    else if(dupCard(hand, suit_ch, rank_ch, cards_read)){
+    else if(dupCard(hand, suit, rank, cards_read)){
       printf("Duplicate card; ignored.\n");
     }
     else{
@@ -122,7 +135,7 @@ void analyze_hand(int hand[5][2]){
   int num_consec = 0;
   int rank;
   straight = false;
-  flush = false;
+  flush = true;
   four = false;
   three = false;
   pairs = 0;
@@ -130,9 +143,9 @@ void analyze_hand(int hand[5][2]){
   /* checks for flush */
   for(int i = 0; i < NUM_CARDS; i++){
     if(hand[i][1] != hand[0][1]){
+      flush = false;
       break;
     }
-    flush = true;
   }
 
   /* check for straight
@@ -151,28 +164,36 @@ void analyze_hand(int hand[5][2]){
 
 
   /* check for 4-of-a-kind, 3-of-a-kind, and pairs
+   * The original algoithm was much better, but the book required us to not use
+   * the same data structure to check for pairs, so we just sort them in a
+   * different array then run a similar check for pairs
+   */
 
-  LEFT TO DO - IMPLEMENT THIS */
-
-  /*
-  int match;
+  int matchList[NUM_CARDS];
   for(int i = 0; i < NUM_CARDS; i++){
-    for(int )
+    matchList[i] = hand[i][0];
+  }
+  selection_sort(matchList, NUM_CARDS);
+
+  for(int i = 0; i < 5; i++){
+    printf("%d ", matchList[i]);
   }
 
-
-  for(rank = 0; rank < NUM_RANKS; rank++){
-    if(num_in_rank[rank] == 4){
-      four = true;
+  int match = 0, temp = matchList[0];
+  for(int i = 0; i < NUM_CARDS; i++){
+    if(matchList[i] == temp){
+      match++;
     }
-    if(num_in_rank[rank] == 3){
-      three = true;
-    }
-    if(num_in_rank[rank] == 2){
-      pairs++;
+    if(matchList[i] != temp || i == NUM_CARDS - 1){
+      switch(match){
+        case(2): pairs++; break;
+        case(3): three = true; break;
+        case(4): four = true; break;
+      }
+      match = 1;
+      temp = matchList[i];
     }
   }
-  */
 }
 
 /* print_result: Prints the classificaiton of the hand, based on the values of
@@ -208,4 +229,28 @@ void print_result(void){
   }
 
   printf("\n\n");
+}
+
+// Given an array and an n, sorts the first n elements of the array
+void selection_sort(int a[], int n){
+
+
+  if(n != 1){
+    int high = a[0], highIndex = 0;
+    int temp = 0;
+    for(int i = 1; i < n; i++){
+      if(a[i] > high){
+        high = a[i];
+        highIndex = i;
+      }
+    }
+    for(int i = highIndex; i <= n - 2; i++){
+      a[i] = a[i + 1];
+    }
+    a[n-1] = high;
+    selection_sort(a, n - 1);
+  }
+  else{
+    return;
+  }
 }
