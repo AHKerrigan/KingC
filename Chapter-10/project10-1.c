@@ -2,7 +2,6 @@
 integers, and add a main function that asks the user to enter a series of
 parenthesis and/r braces, then indicates whether or not they're properly nested
 
-TO-DO: ALL OF IT :)
 */
 
 #include <stdbool.h>
