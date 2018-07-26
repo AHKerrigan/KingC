@@ -18,10 +18,7 @@ int main(void){
   //printf("&*i = %d\n", &*i);
   */
 
-  p = &i;
-  q = &i;
-
-  p = *&q;
+  *p = *q;
 
   printf("%d", p);
   return 0;
