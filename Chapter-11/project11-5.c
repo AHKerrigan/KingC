@@ -113,7 +113,6 @@ void read_cards(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_SUITS]){
 */
 void analyze_hand(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_SUITS], bool *straight, bool *flush, bool *four, bool *three, int *pairs){
   
-
   int num_consec = 0;
   int rank, suit;
   *straight = false;
