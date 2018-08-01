@@ -10,9 +10,6 @@ MOD 11-5: Move all external variables into main and use as pointers  */
 #define NUM_SUITS 4
 #define NUM_CARDS 5
 
-/* external variables */
-
-
 /* prototypes */
 void read_cards(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_SUITS]);
 void analyze_hand(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_SUITS], bool *straight, bool *flush, bool *four, bool *three, int *pairs);
