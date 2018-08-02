@@ -106,7 +106,7 @@ void read_cards(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_SUITS]){
 /* analyze_hand: Determines whether the hand contains a straight, a flush,
 *                four-of-a-kind, and/or three-of-a-kind; determines the number
 *                of pairs; stores the results into the external variables
-*                flush, four, three, and pairs
+*                flush, four, three, and pairs.
 */
 void analyze_hand(int num_in_rank[NUM_RANKS], int num_in_suit[NUM_SUITS], bool *straight, bool *flush, bool *four, bool *three, int *pairs){
   
