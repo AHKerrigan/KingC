@@ -8,12 +8,14 @@
  */
 void capitalize(char *str){
     char temp[strlen(str)];
-    char *tempPtr = &temp[0];
+    char *p = &str[0];
+    char *d = &temp[0];
 
-    for(;*str++; tempPtr++){
-        *temp = toupper(*str);
+    for(;*p; p++, d++){
+        *d = toupper(*p);
     }
-    strcat(temp, "\0");
+    *d = '\0';
+
     strcpy(str, temp);
 }
 
@@ -21,5 +23,6 @@ int main(void){
     char str[] = "please don't crash";
     capitalize(str);
     puts(str);
+
     return 0;
 }
