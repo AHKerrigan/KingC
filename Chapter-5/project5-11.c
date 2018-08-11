@@ -1,5 +1,7 @@
 /* Write a program that asks the user for a two-digit number, then prints the
-English world for the number */
+English world for the number 
+ * MOD 13-7: Modify such that the program uses pointers to stirngs instead of 
+ * switch*/
 
 #include <stdio.h>
 
@@ -10,40 +12,14 @@ int main(void){
   tenth = num/10;
   oneth = num % 10;
   printf("You entered the number ");
+  char *teens[] = {"eleven", "twelve", "thirteen", "fourteen", "fifteen",
+                   "sixteen", "seventeen", "eighteen", "nineteen "};
 
   if(num == 10){
     printf("ten");
   }
   else if(num > 10 && num < 20){
-    switch(num){
-      case 11:
-        printf("eleven");
-        break;
-      case 12:
-        printf("twelve");
-        break;
-      case 13:
-        printf("thirteen");
-        break;
-      case 14:
-        printf("fourteen");
-        break;
-      case 15:
-        printf("fifteen");
-        break;
-      case 16:
-        printf("sixteen");
-        break;
-      case 17:
-        printf("seventeen");
-        break;
-      case 18:
-        printf("eighteen");
-        break;
-      case 19:
-        printf("nineteen");
-        break;
-    }
+    puts(teens[num - 11]);
   }
   else{
     switch(tenth){
