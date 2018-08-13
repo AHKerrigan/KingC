@@ -25,7 +25,7 @@ void reversal(char *message){
     for(; p > &message[0]; p--){
         printf("%c", *p);
     }
-    //prints the last character seperately to prevent seg fault
+     //prints the last character seperately to prevent seg fault
 
     printf("%c", message[0]);
 }
