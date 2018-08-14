@@ -18,6 +18,6 @@ int main(void){
         case WEST: x--; break;
         case NORTH: y++; break;
         case SOUTH: y--; break;
-        default: break;
+        default: break; 
     }
 }
