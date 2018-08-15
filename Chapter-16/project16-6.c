@@ -20,7 +20,7 @@ int day_of_year(date d){
 }
 
 /* Returns -1 if d1 is an earlier date than d2, +1 if d1 is a later 
- * late date tahn d2, and 0 if d1 and d2 are the same
+ * late date than d2, and 0 if d1 and d2 are the same
  */
 int compare_dates(date d1, date d2){
     if(d1.year < d2.year){
